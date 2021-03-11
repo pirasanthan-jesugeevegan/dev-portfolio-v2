@@ -1,0 +1,15 @@
+body {
+  background-color: #1d1d1d;
+  color: white;
+  font-family: 'Roboto';
+}
+
+p {
+  font-size: 18px;
+  text-align: left;
+  margin-top: auto;
+}
+h2 {
+  text-align: left;
+  margin-left: 20px;
+}

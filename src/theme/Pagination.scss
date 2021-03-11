@@ -1,0 +1,120 @@
+:root {
+  --base-sizing: 44px;
+  --base-sizing-md: 18px;
+  --base-sizing-sm: 14px;
+  --color-bg: #242240;
+  --color-dot: #fff;
+}
+
+@mixin tabs {
+  @for $i from 1 through 4 {
+    &:nth-of-type(#{$i}) {
+      &.active {
+        ~ .pagination-current {
+          transform: translateX(#{($i - 1) * 100%});
+        }
+      }
+    }
+  }
+}
+
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+button {
+  position: relative;
+  display: inline-block;
+  outline: none;
+  border: 0;
+}
+
+.pagination {
+  display: inline-flex;
+  position: relative;
+}
+
+.pagination-button {
+  @include tabs;
+  width: var(--base-sizing);
+  height: var(--base-sizing);
+  padding: 0;
+  color: var(--color-dot);
+  background-color: transparent;
+  cursor: pointer;
+
+  &::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: var(--base-sizing-sm);
+    height: var(--base-sizing-sm);
+    margin: auto;
+    border: 2px solid var(--color-dot);
+    border-radius: 50%;
+    transform: scale(1);
+    transition: transform 120ms cubic-bezier(0.25, 0.1, 0.25, 1),
+      opacity 40ms cubic-bezier(0.25, 0.5, 0, 1);
+    opacity: 0.575;
+  }
+
+  &:hover {
+    &::before {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+  }
+
+  &.active {
+    &::before {
+      transform: scale(0);
+      transition: transform 150ms cubic-bezier(0, 0, 0.25, 1);
+    }
+  }
+
+  &:active {
+    ~ .pagination-current {
+      &::before {
+        transform: scale(1.5, 0.8);
+        transition: transform 100ms cubic-bezier(0, 0, 0.5, 1);
+      }
+    }
+  }
+}
+
+.pagination-current {
+  z-index: 1;
+  position: absolute;
+  display: flex;
+  width: var(--base-sizing);
+  height: var(--base-sizing);
+  transition: all 250ms cubic-bezier(0, 0, 0.5, 1);
+
+  &::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: var(--base-sizing-md);
+    height: var(--base-sizing-md);
+    margin: auto;
+    border: 2px solid var(--color-dot);
+    border-radius: 50%;
+    background-color: var(--color-dot);
+    transform: scale(1);
+    transition: transform 225ms 120ms cubic-bezier(0, 1.95, 0.75, 1);
+    cursor: pointer;
+  }
+}
